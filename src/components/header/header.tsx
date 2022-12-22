@@ -18,7 +18,8 @@ import {
 } from '@chakra-ui/react';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
-
+import logo from './logo.png';
+import Logo from '../logo';
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
     px={2}
@@ -40,8 +41,10 @@ export default function Nav() {
     <>
       <Box bg={useColorModeValue('gray.100', 'gray.900')} px={4}>
         <Flex h={16} alignItems={'center'} justifyContent={'space-between'}>
-          {/* <Box>IntuitionBook</Box> */}
-          
+
+          {/* LOGO */}
+          <Box><Logo/></Box>
+
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
               <Button onClick={toggleColorMode}>
