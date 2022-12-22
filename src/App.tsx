@@ -1,15 +1,16 @@
-import React from 'react';
-
+import { ChakraProvider } from '@chakra-ui/react';
+import * as React from 'react';
+import Footer from './components/footer/footer';
+import Header from './components/header/header';
+import ArticleList from './pages/landing/landingpage';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          I am here to learn react.
-        </p>
-      </header>
-    </div>
+    <ChakraProvider>
+      <Header/>
+      <ArticleList/>
+      <Footer/>
+    </ChakraProvider>
   );
 }
 
