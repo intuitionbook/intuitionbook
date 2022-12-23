@@ -20,6 +20,7 @@ import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 
 import logo from './logo.png';
 import Logo from '../logo';
+import ButtonWithShadow from '../buttonwithshadow';
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
     px={2}
@@ -44,9 +45,12 @@ export default function Nav() {
 
           {/* LOGO */}
           <Box><Logo/></Box>
-
+          
+          <ButtonWithShadow/>
+        
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
+
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
