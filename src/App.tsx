@@ -6,6 +6,7 @@ import Header from './components/header/header';
 import CaptionCarousel from './pages/landing/CaptionCarousel';
 import ArticleList from './pages/landing/landingpage';
 import Home from './pages/home/home';
+import NewsLetter from './components/newsletter';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={
           <ChakraProvider>
             <Header/>
+            
             <ArticleList/>
           </ChakraProvider>}>
         </Route>

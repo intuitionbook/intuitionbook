@@ -1,7 +1,9 @@
 import { ReactNode } from 'react';
 import {
   Box,
+  Text,
   Flex,
+  Icon,
   Avatar,
   Link,
   Button,
@@ -10,17 +12,26 @@ import {
   MenuList,
   MenuItem,
   MenuDivider,
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
   useDisclosure,
   useColorModeValue,
   Stack,
   useColorMode,
   Center,
 } from '@chakra-ui/react';
-import { MoonIcon, SunIcon } from '@chakra-ui/icons';
+import { 
+  MoonIcon, 
+  SunIcon,
+  HamburgerIcon,
+  CloseIcon,
+  ChevronDownIcon,
+  ChevronRightIcon,  
+} from '@chakra-ui/icons';
 
-import logo from './logo.png';
 import Logo from '../logo';
-import ButtonWithShadow from '../buttonwithshadow';
+
 const NavLink = ({ children }: { children: ReactNode }) => (
   <Link
     px={2}
@@ -46,14 +57,20 @@ export default function Nav() {
           {/* LOGO */}
           <Box><Logo/></Box>
           
-          <ButtonWithShadow/>
-        
+          <DesktopNav/>
+
+          
+
           <Flex alignItems={'center'}>
             <Stack direction={'row'} spacing={7}>
 
               <Button onClick={toggleColorMode}>
                 {colorMode === 'light' ? <MoonIcon /> : <SunIcon />}
               </Button>
+
+              {/* <Button onClick={NewsLetterDialog} >Subscribe Us</Button> */}
+
+              <SubscribeUs/>
 
               <Menu>
                 <MenuButton
@@ -93,3 +110,142 @@ export default function Nav() {
     </>
   );
 }
+
+const DesktopNav = () => {
+  const linkColor = useColorModeValue('gray.600', 'gray.200');
+  const linkHoverColor = useColorModeValue('gray.800', 'white');
+  const popoverContentBgColor = useColorModeValue('white', 'gray.800');
+  return (
+    <Stack direction={'row'} spacing={4}>
+      { NAV_ITEMS.map((navItem) => (
+        <Box key={navItem.label}>
+          <Popover trigger={'hover'} placement={'bottom-start'}>
+            <PopoverTrigger>
+            <Link
+                p={2}
+                href={navItem.href ?? '#'}
+                fontSize={'sm'}
+                fontWeight={500}
+                color={linkColor}
+                _hover={{
+                  textDecoration: 'none',
+                  color: linkHoverColor,
+                }}>
+                {navItem.label}
+              </Link>
+            </PopoverTrigger>
+
+            {navItem.children && (
+              <PopoverContent
+                border={0}
+                boxShadow={'xl'}
+                bg={popoverContentBgColor}
+                p={4}
+                rounded={'xl'}
+                minW={'sm'}>
+                <Stack>
+                  {navItem.children.map((child) => (
+                    <DesktopSubNav key={child.label} {...child} />
+                  ))}
+                </Stack>
+              </PopoverContent>
+            )}
+          </Popover>
+        </Box>
+      ))}
+    </Stack>
+  );
+};
+
+const DesktopSubNav = ({ label, href, subLabel }: NavItem) => {
+  return (
+    <Link
+      href={href}
+      role={'group'}
+      display={'block'}
+      p={2}
+      rounded={'md'}
+      _hover={{ bg: useColorModeValue('pink.50', 'gray.900') }}>
+      <Stack direction={'row'} align={'center'}>
+        <Box>
+          <Text
+            transition={'all .3s ease'}
+            _groupHover={{ color: '#0cc894' }}
+            fontWeight={500}>
+            {label}
+          </Text>
+          <Text fontSize={'sm'}>{subLabel}</Text>
+        </Box>
+        <Flex
+          transition={'all .3s ease'}
+          transform={'translateX(-10px)'}
+          opacity={0}
+          _groupHover={{ opacity: '100%', transform: 'translateX(0)' }}
+          justify={'flex-end'}
+          align={'center'}
+          flex={1}>
+          <Icon color={'#0cc894'} w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Link>
+  );
+};
+
+interface NavItem {
+  label: string;
+  subLabel?:string;
+  children?:Array<NavItem>;
+  href?:string;
+
+}
+
+const NAV_ITEMS: Array<NavItem> = [
+  {
+    label: 'Inspiration',
+    children: [
+      {
+        label: 'Explore Design Work',
+        subLabel: 'Trending Design to inspire you',
+        href: '#',
+      },
+      {
+        label: 'New & Noteworthy',
+        subLabel: 'Up-and-coming Designers',
+        href: '#',
+      },
+    ],
+  },
+  {
+    label: 'Find Work',
+    children: [
+      {
+        label: 'Job Board',
+        subLabel: 'Find your dream design job',
+        href: '#',
+      },
+      {
+        label: 'Freelance Projects',
+        subLabel: 'An exclusive list for contract work',
+        href: '#',
+      },
+    ],
+  },
+  {
+    label: 'Learn Design',
+    href: '#',
+  },
+  {
+    label: 'Hire Designers',
+    href: '#',
+  },
+
+];
+
+
+const SubscribeUs = () => {
+  return (
+    <Flex>
+        
+    </Flex>
+  );
+}; 

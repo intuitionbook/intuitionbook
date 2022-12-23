@@ -21,6 +21,8 @@ import {
 } from "@chakra-ui/react";
 import Footer from "../../components/footer/footer";
 import Header from "../../components/header/header";
+import CaptionCarousel from "./CaptionCarousel";
+import NewsLetter from "../../components/newsletter";
 
 interface IBlogTags {
   tags: Array<string>;
@@ -116,6 +118,8 @@ export function WithBackgroundImage() {
 const ArticleList = () => {
   return (
     <>
+      <NewsLetter/>
+      <CaptionCarousel/>
       <Container maxW={"7xl"} p="12">
         <Heading as="h1">Stories by Chakra Templates</Heading>
         <Box
